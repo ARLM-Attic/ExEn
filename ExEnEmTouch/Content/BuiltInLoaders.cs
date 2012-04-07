@@ -43,7 +43,7 @@ namespace Microsoft.Xna.Framework.Content
 
 			string texturePath = null;
 			string metricsPath = null;
-			if(graphicsDevice.Scaler.AssetLoadScale == 2)
+			if(MonoTouch.UIKit.UIScreen.MainScreen.Scale > 1.0)
 			{
 				texturePath = ContentHelpers.TryGetAssetFullPath(assetName, contentManager, spriteFontTextureAt2xExtensions);
 				metricsPath = ContentHelpers.TryGetAssetFullPath(assetName, contentManager, spriteFontMetricsAt2xExtensions);
