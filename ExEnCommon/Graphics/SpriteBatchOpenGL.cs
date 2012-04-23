@@ -305,6 +305,9 @@ namespace Microsoft.Xna.Framework.Graphics
 				throw new InvalidOperationException("SpriteBatch is in incorrect state");
 			inBatch = true;
 
+			if(blendState == null)
+				blendState = BlendState.AlphaBlend;
+
 			// Set up OpenGL projection matrix (client to projection)
 			device.SetupClientProjection();
 
