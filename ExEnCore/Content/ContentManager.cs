@@ -55,7 +55,7 @@ namespace Microsoft.Xna.Framework.Content
 			if(IsDisposed)
 				throw new ObjectDisposedException(this.ToString());
 
-			foreach(object asset in assets)
+			foreach(object asset in assets.Values)
 			{
 				IDisposable disposableAsset = asset as IDisposable;
 				if(disposableAsset != null)
