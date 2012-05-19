@@ -79,7 +79,9 @@ namespace Microsoft.Xna.Framework
 
 		public override void WillRotate(UIInterfaceOrientation toInterfaceOrientation, double duration)
 		{
-			Console.WriteLine("ExEnEmTouchGameViewController.WillRotate(to = " + toInterfaceOrientation + ", " + duration + ")");
+			// REMOVED: Console output during orientation changes seems to eventually lead to a crash
+			//Console.WriteLine("ExEnEmTouchGameViewController.WillRotate(to = " + toInterfaceOrientation + ", " + duration + ")");
+
 			gameView.blockOrientationChange = true;
 		}
 
@@ -97,7 +99,8 @@ namespace Microsoft.Xna.Framework
 
 		public override void DidRotate(UIInterfaceOrientation fromInterfaceOrientation)
 		{
-			Console.WriteLine("ExEnEmTouchGameViewController.DidRotate(from = " + fromInterfaceOrientation + ")");
+			// REMOVED: Console output during orientation changes seems to eventually lead to a crash
+			//Console.WriteLine("ExEnEmTouchGameViewController.DidRotate(from = " + fromInterfaceOrientation + ")");
 
 			gameView.blockOrientationChange = false;
 			// Reset the transformation (for good measure) - return to the fast-path for OpenGL:

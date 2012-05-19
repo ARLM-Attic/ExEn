@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlankGame-MonoTouch", "BlankGame\BlankGame-MonoTouch.csproj", "{212743BF-5354-4087-A86D-3CBE5F555AB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExEnCore MonoTouch", "ExEnCore\ExEnCore MonoTouch.csproj", "{4740C1D7-5EE0-43AC-A862-45B8D245FC43}"
@@ -79,8 +79,8 @@ Global
 		$1.inheritsScope = text/plain
 		$1.scope = text/x-csharp
 		$0.CSharpFormattingPolicy = $2
-		$2.BeforeMethodCallParentheses = False
 		$2.BeforeMethodDeclarationParentheses = False
+		$2.BeforeMethodCallParentheses = False
 		$2.BeforeConstructorDeclarationParentheses = False
 		$2.BeforeDelegateDeclarationParentheses = False
 		$2.NewParentheses = False
