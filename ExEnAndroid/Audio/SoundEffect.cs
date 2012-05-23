@@ -11,7 +11,7 @@ namespace Microsoft.Xna.Framework.Audio
 		internal static SoundPool pool;
 		internal static void Setup()
 		{
-			pool = new Android.Media.SoundPool(32, (int)Android.Media.Stream.Music, 0);
+			pool = new Android.Media.SoundPool(32, Android.Media.Stream.Music, 0);
 		}
 	
 		#endregion

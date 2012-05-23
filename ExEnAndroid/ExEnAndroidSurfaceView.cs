@@ -15,6 +15,7 @@ using Android.Runtime;
 using ExEnCore;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using Android.Graphics;
 
 
 namespace Microsoft.Xna.Framework
@@ -184,7 +185,7 @@ namespace Microsoft.Xna.Framework
 		}
 		
 		// As ISurfaceHolderCallback
-		public void SurfaceChanged(ISurfaceHolder holder, int format, int width, int height)
+		public void SurfaceChanged(ISurfaceHolder holder, Format format, int width, int height)
 		{
 			ExEnLog.WriteLine("ExEnAndroidSurfaceView.SurfaceChanged(format = " + format
 					+ ", width = " + width + ", height = " + height + ")");
@@ -458,7 +459,7 @@ namespace Microsoft.Xna.Framework
 		{
 			if(!egl.EglSwapBuffers(eglDisplay, eglSurface))
 			{
-				if(egl.EglGetError() == EGL11Consts.EglContextLost)
+				if(egl.EglGetError() == EGL11.EglContextLost)
 				{
 					if(lostEglContext)
 						ExEnLog.WriteLine("Lost EGL context");
@@ -483,22 +484,22 @@ namespace Microsoft.Xna.Framework
 		{
 			switch(egl.EglGetError())
 			{
-				case EGL10Consts.EglSuccess: return "Success";
+				case EGL10.EglSuccess: return "Success";
 				
-				case EGL10Consts.EglNotInitialized:    return "Not Initialized";
+				case EGL10.EglNotInitialized:    return "Not Initialized";
 					
-				case EGL10Consts.EglBadAccess:         return "Bad Access";
-				case EGL10Consts.EglBadAlloc:          return "Bad Allocation";
-				case EGL10Consts.EglBadAttribute:      return "Bad Attribute";
-				case EGL10Consts.EglBadConfig:         return "Bad Config";
-				case EGL10Consts.EglBadContext:        return "Bad Context";
-				case EGL10Consts.EglBadCurrentSurface: return "Bad Current Surface";
-				case EGL10Consts.EglBadDisplay:        return "Bad Display";
-				case EGL10Consts.EglBadMatch:          return "Bad Match";
-				case EGL10Consts.EglBadNativePixmap:   return "Bad Native Pixmap";
-				case EGL10Consts.EglBadNativeWindow:   return "Bad Native Window";
-				case EGL10Consts.EglBadParameter:      return "Bad Parameter";
-				case EGL10Consts.EglBadSurface:        return "Bad Surface";
+				case EGL10.EglBadAccess:         return "Bad Access";
+				case EGL10.EglBadAlloc:          return "Bad Allocation";
+				case EGL10.EglBadAttribute:      return "Bad Attribute";
+				case EGL10.EglBadConfig:         return "Bad Config";
+				case EGL10.EglBadContext:        return "Bad Context";
+				case EGL10.EglBadCurrentSurface: return "Bad Current Surface";
+				case EGL10.EglBadDisplay:        return "Bad Display";
+				case EGL10.EglBadMatch:          return "Bad Match";
+				case EGL10.EglBadNativePixmap:   return "Bad Native Pixmap";
+				case EGL10.EglBadNativeWindow:   return "Bad Native Window";
+				case EGL10.EglBadParameter:      return "Bad Parameter";
+				case EGL10.EglBadSurface:        return "Bad Surface";
 				
 				default: return "Unknown Error";
 			}
@@ -519,8 +520,8 @@ namespace Microsoft.Xna.Framework
 			
 			egl = EGLContext.EGL.JavaCast<IEGL10>();
 			
-			eglDisplay = egl.EglGetDisplay(EGL10Consts.EglDefaultDisplay);
-			if(eglDisplay == EGL10Consts.EglNoDisplay)
+			eglDisplay = egl.EglGetDisplay(EGL10.EglDefaultDisplay);
+			if(eglDisplay == EGL10.EglNoDisplay)
 				throw new ExEnSurfaceException("Could not get EGL display");
 			
 			int[] version = new int[2];
@@ -532,13 +533,13 @@ namespace Microsoft.Xna.Framework
 			// TODO: allow GraphicsDeviceManager to specify a frame buffer configuration
 			// TODO: test this configuration works on many devices:
 			int[] configAttribs = new int[] {
-					//EGL10Consts.EglRedSize, 5,
-					//EGL10Consts.EglGreenSize, 6,
-					//EGL10Consts.EglBlueSize, 5,
-					//EGL10Consts.EglAlphaSize, 0,
-					//EGL10Consts.EglDepthSize, 4,
-					//EGL10Consts.EglStencilSize, 0,
-					EGL10Consts.EglNone };
+					//EGL10.EglRedSize, 5,
+					//EGL10.EglGreenSize, 6,
+					//EGL10.EglBlueSize, 5,
+					//EGL10.EglAlphaSize, 0,
+					//EGL10.EglDepthSize, 4,
+					//EGL10.EglStencilSize, 0,
+					EGL10.EglNone };
 			EGLConfig[] configs = new EGLConfig[1];
 			int[] numConfigs = new int[1];
 			if(!egl.EglChooseConfig(eglDisplay, configAttribs, configs, 1, numConfigs))
@@ -548,9 +549,9 @@ namespace Microsoft.Xna.Framework
 			eglConfig = configs[0];
 			
 			const int EglContextClientVersion = 0x3098;
-			int[] contextAttribs = new int[] { EglContextClientVersion, 1, EGL10Consts.EglNone };
-			eglContext = egl.EglCreateContext(eglDisplay, eglConfig, EGL10Consts.EglNoContext, contextAttribs);
-			if(eglContext == null || eglContext == EGL10Consts.EglNoContext)
+			int[] contextAttribs = new int[] { EglContextClientVersion, 1, EGL10.EglNone };
+			eglContext = egl.EglCreateContext(eglDisplay, eglConfig, EGL10.EglNoContext, contextAttribs);
+			if(eglContext == null || eglContext == EGL10.EglNoContext)
 			{
 				eglContext = null;
 				throw new ExEnSurfaceException(AddEGLError("Could not create EGL context"));
@@ -588,7 +589,7 @@ namespace Microsoft.Xna.Framework
 		private bool VerifyEGLContext()
 		{
 			var context = egl.EglGetCurrentContext();
-			return (context != EGL10Consts.EglNoContext && egl.EglGetError() != EGL11Consts.EglContextLost);
+			return (context != EGL10.EglNoContext && egl.EglGetError() != EGL11.EglContextLost);
 		}
 		
 		private void CreateEGLSurface()
@@ -601,7 +602,7 @@ namespace Microsoft.Xna.Framework
 			DestroySurfaceHelper();
 			
 			eglSurface = egl.EglCreateWindowSurface(eglDisplay, eglConfig, (Java.Lang.Object)this.Holder, null);
-			if(eglSurface == null || eglSurface == EGL10Consts.EglNoSurface)
+			if(eglSurface == null || eglSurface == EGL10.EglNoSurface)
 				throw new ExEnSurfaceException(AddEGLError("Could not create EGL window surface"));
 			
 			if(!egl.EglMakeCurrent(eglDisplay, eglSurface, eglSurface, eglContext))
@@ -619,10 +620,10 @@ namespace Microsoft.Xna.Framework
 		{
 			// Assumes lockObject is locked
 			
-			if(!(eglSurface == null || eglSurface == EGL10Consts.EglNoSurface))
+			if(!(eglSurface == null || eglSurface == EGL10.EglNoSurface))
 			{
-				if(!egl.EglMakeCurrent(eglDisplay, EGL10Consts.EglNoSurface,
-							EGL10Consts.EglNoSurface, EGL10Consts.EglNoContext))
+				if(!egl.EglMakeCurrent(eglDisplay, EGL10.EglNoSurface,
+							EGL10.EglNoSurface, EGL10.EglNoContext))
 					throw new ExEnSurfaceException(AddEGLError("Could not unbind EGL surface"));
 				
 				if(!egl.EglDestroySurface(eglDisplay, eglSurface))
@@ -677,7 +678,7 @@ namespace Microsoft.Xna.Framework
 				MotionEventActions a = e.Action;
 				MotionEventActions action = a & MotionEventActions.Mask;
 				// According to the docs, this does not actually produce the "Id" (despite the name), but the "Index"!
-				int actionPointerIndex = ((int)a & MotionEvent.ActionPointerIdMask) >> MotionEvent.ActionPointerIdShift;
+				//int actionPointerIndex = ((int)a & MotionEvent.ActionPointerIdMask) >> MotionEvent.ActionPointerIdShift;
 				
 				for(int i = 0; i < count; i++) // for each pointer (unordered)
 				{

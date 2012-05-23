@@ -108,14 +108,14 @@ namespace Microsoft.Xna.Framework
 			bool landscape = landscapeLeft || landscapeRight;
 			if(portrait == landscape) // both (or neither, which shouldn't happen)
 			{
-				activity.SetRequestedOrientation(Android.Content.PM.ScreenOrientation.Sensor);
+				activity.RequestedOrientation = Android.Content.PM.ScreenOrientation.Sensor;
 			}
 			else if(landscape)
 			{
 				// NOTE: Would prefer to use sensorLandscape, but that is only introduced in API level 9
 				// TODO: If adding support for different API versions, add a conditional that uses
 				//       sensorLandscape on API level 9+
-				activity.SetRequestedOrientation(Android.Content.PM.ScreenOrientation.Landscape);
+				activity.RequestedOrientation = Android.Content.PM.ScreenOrientation.Landscape;
 			}
 			else // portrait
 			{
@@ -123,7 +123,7 @@ namespace Microsoft.Xna.Framework
 				// I'm fairly sure that a phone-style device will treat sensorPortrait as portrait
 				// (no upside-down-portrait), and a pad will support it fully. This matches the
 				// difference between iPhone and iPad.
-				activity.SetRequestedOrientation(Android.Content.PM.ScreenOrientation.Portrait);
+				activity.RequestedOrientation = Android.Content.PM.ScreenOrientation.Portrait;
 			}
 		}
 

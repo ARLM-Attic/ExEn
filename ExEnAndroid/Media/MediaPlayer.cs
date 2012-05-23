@@ -25,14 +25,13 @@ namespace Microsoft.Xna.Framework.Media
 		
 		// Queued seek position, for when starting a song when resuming an activity
 		static int queueSeek;
-		
-		
-		static bool HandleError(AMP mp, MediaError what, int extra)
+
+
+		static void HandleError(object sender, EventArgs args)
 		{
 			lock(lockObject)
 			{
 				DoPlayerReset();
-				return true;
 			}
 		}
 		
@@ -73,7 +72,7 @@ namespace Microsoft.Xna.Framework.Media
 				
 				player = new AMP();
 				
-				player.Error = HandleError;
+				player.Error += HandleError;
 				player.Prepared += HandlePrepared;
 				playRequiresReset = false; // player starts in the Idle state
 				
