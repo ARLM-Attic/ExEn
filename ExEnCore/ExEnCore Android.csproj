@@ -11,7 +11,6 @@
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <AssemblyName>ExEnCore</AssemblyName>
-    <TargetFrameworkVersion>v2.1</TargetFrameworkVersion>
     <ProjectGuid>{6622CF5F-D0D3-4154-A426-D334799ADC0E}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

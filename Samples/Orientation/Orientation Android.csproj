@@ -14,7 +14,6 @@
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AssemblyName>Orientation</AssemblyName>
-    <TargetFrameworkVersion>v2.1</TargetFrameworkVersion>
     <ProjectGuid>{5D335675-C440-47AF-804F-EF117991FE72}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

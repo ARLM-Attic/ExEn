@@ -14,7 +14,6 @@
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AssemblyName>Marblets</AssemblyName>
-    <TargetFrameworkVersion>v2.1</TargetFrameworkVersion>
     <ProjectGuid>{27F3A253-842E-44DC-8A27-2094FC8A176D}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
