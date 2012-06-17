@@ -673,20 +673,27 @@ namespace Microsoft.Xna.Framework
 			try
 			{
 				bool processed = false; // Event has been processed
-					
-				int count = e.PointerCount;
-				MotionEventActions a = e.Action;
-				MotionEventActions action = a & MotionEventActions.Mask;
-				// According to the docs, this does not actually produce the "Id" (despite the name), but the "Index"!
-				//int actionPointerIndex = ((int)a & MotionEvent.ActionPointerIdMask) >> MotionEvent.ActionPointerIdShift;
-				
-				for(int i = 0; i < count; i++) // for each pointer (unordered)
+
+				MotionEventActions action = e.ActionMasked;
+
+				if(action == MotionEventActions.Move) // A batch containing the movements of many pointers
 				{
+					int count = e.PointerCount;
+					for(int i = 0; i < count; i++)
+					{
+						int id = e.GetPointerId(i);
+						Point position = inputScaler.TouchToLogical((int)e.GetX(i), (int)e.GetY(i));
+
+						TouchInputManager.MoveTouch(id, position);
+					}
+					processed = true;
+				}
+				else // A single pointer going up or down (and perhaps a bunch of other pointers we don't care about)
+				{
+					int i = e.ActionIndex;
 					int id = e.GetPointerId(i);
-					
-					var location = new System.Drawing.PointF(e.GetX(i), e.GetY(i));
-					Point position = inputScaler.TouchToLogical((int)location.X, (int)location.Y);
-					
+					Point position = inputScaler.TouchToLogical((int)e.GetX(i), (int)e.GetY(i));
+
 					switch(action)
 					{
 					case MotionEventActions.Down:
@@ -697,13 +704,6 @@ namespace Microsoft.Xna.Framework
 						processed = true;
 						break;
 						
-						
-					case MotionEventActions.Move:
-						TouchInputManager.MoveTouch(id, position);
-						processed = true;
-						break;
-						
-						
 					case MotionEventActions.Up:
 					case MotionEventActions.PointerUp:
 					case MotionEventActions.Cancel:
@@ -712,7 +712,7 @@ namespace Microsoft.Xna.Framework
 						break;
 					}
 				}
-				
+
 				if(processed)
 					return true;
 				else
