@@ -195,6 +195,7 @@ namespace Microsoft.Xna.Framework.Audio
 				AudioQueueStatus status = AudioQueueEnqueueBuffer(queue.Handle,
 						new IntPtr(buffer), (packetDescriptionArray != IntPtr.Zero ? numPackets : 0),
 						packetDescriptionArray);
+
 				currentPacket += numPackets;
 			}
 			else
@@ -232,12 +233,19 @@ namespace Microsoft.Xna.Framework.Audio
 		{
 			if(disposing)
 			{
+				//
+				// Adding the following two lines prevents crashing on iOS 6
+				// when the audio is stopped or disposed.
+				//
+				queue.Stop(true);
+				currentPacket = 0;
+
 				UnregisterRestartable();
 				queue.RemoveListener(AudioQueueProperty.IsRunning, IsRunningChangedCallback);
 				queue.Dispose(); // this will dispose of the buffers allocated
 				queue = null;
 			}
-
+			
 			// Dispose of unmanaged resources...
 			Marshal.FreeHGlobal(packetDescriptionArray);
 		}
